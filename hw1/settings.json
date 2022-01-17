@@ -1,0 +1,29 @@
+{
+  "test_dir": "tests",
+  "mode": "exe",
+  "test_suite_names": ["mersenne", "recurse", "covidtracker"],
+  "non_zero_exit_status_penalty": 0.75,
+  "memory_penalty": 0.5,
+  "late_penalty": 0.1,
+  "non_recursive_penalty": ["recurse"],
+  "test_suites": {
+    "mersenne": [
+      { "desc": "n = 2",   "args": ["2"],   "diff": "normal", "valgrind": false, "points": 1, "visibility": "visible" },
+      { "desc": "n = 4",   "args": ["4"],   "diff": "normal", "valgrind": false, "points": 1, "visibility": "visible" },
+      { "desc": "n = 7",   "args": ["7"],   "diff": "normal", "valgrind": false, "points": 2, "visibility": "visible" },
+      { "desc": "n = 10",  "args": ["10"],  "diff": "normal", "valgrind": false, "points": 2, "visibility": "visible" }
+    ],
+    "recurse": [
+      { "desc": "n = 1",  "args": ["1"],  "diff": "normal", "valgrind": false, "points": 4, "visibility": "visible" },
+      { "desc": "n = 2",  "args": ["2"],  "diff": "normal", "valgrind": false, "points": 4, "visibility": "visible" },
+      { "desc": "n = 3",  "args": ["3"],  "diff": "normal", "valgrind": false, "points": 2, "visibility": "visible" },
+      { "desc": "n = 4",  "args": ["4"],  "diff": "normal", "valgrind": false, "points": 2, "visibility": "visible" }
+    ],
+    "covidtracker": [
+      { "desc": "Example input from HW document",             "args": ["tests/covidtracker_input_0.txt"], "diff": "float", "valgrind": true, "points": 5,  "visibility": "visible" },
+      { "desc": "New head every time",                        "args": ["tests/covidtracker_input_1.txt"], "diff": "float", "valgrind": true, "points": 5,  "visibility": "visible" },
+      { "desc": "New tail every time",                        "args": ["tests/covidtracker_input_2.txt"], "diff": "float", "valgrind": true, "points": 5,  "visibility": "visible" },
+      { "desc": "100 people",                                 "args": ["tests/covidtracker_input_3.txt"], "diff": "float", "valgrind": true, "points": 5,  "visibility": "visible" }
+    ]
+  }
+}
