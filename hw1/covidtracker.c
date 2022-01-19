@@ -39,6 +39,8 @@ int main(int argc, char const* argv[]) {
         putInfected(infected);
     }
 
+    fclose(file);
+
     person* currentPerson = firstElement;
 
     while(currentPerson != NULL) {
