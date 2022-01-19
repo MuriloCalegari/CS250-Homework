@@ -13,7 +13,7 @@ def main():
     """
     Parse arguments and run autograder.
     """
-    parser = argparse.ArgumentParser(description="Run autograder.", exit_on_error=False)
+    parser = argparse.ArgumentParser(description="Run autograder.")
     parser.set_defaults()
     parser.add_argument("test_suite", type=str, choices=["ALL", "CLEAN", "mersenne", "recurse", "covidtracker"],
                         help="ALL, CLEAN, or test suite name", metavar="<suite>")

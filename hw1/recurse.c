@@ -7,6 +7,8 @@ int main(int argc, char const* argv[]) {
     int n = atoi(argv[1]);
 
     printf("%d", computefn(n));
+
+    return 0;
 }
 
 int computefn (int n) {

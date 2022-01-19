@@ -14,5 +14,5 @@ int main(int argc, char const* argv[]) {
 
     printf("%d", mersenne);
 
-    return mersenne;
+    return 0;
 }
