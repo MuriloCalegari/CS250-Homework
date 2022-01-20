@@ -14,7 +14,7 @@ struct person {
     person* next;
 };
 
-person* firstElement;
+person* firstElement = NULL;
 
 void putTransmitter(char* transmitterName, char* infectedName);
 void putInfected(char* infectedName);
@@ -28,8 +28,8 @@ int main(int argc, char const* argv[]) {
         return 1;
     }
 
-    char infected[NAME_MAX_SIZE];
-    char transmitter[NAME_MAX_SIZE];
+    char infected[NAME_MAX_SIZE] = "";
+    char transmitter[NAME_MAX_SIZE] = "";
 
     while (fgets(line, LINE_MAX_SIZE, file) != NULL) {
         if (strcmp(line, "DONE\n") == 0) break;
@@ -73,6 +73,7 @@ void putTransmitter(char* transmitterName, char* infectedName) {
         person* transmitter = (person*)malloc(sizeof(person));
         strcpy(transmitter->name, transmitterName);
         strcpy(transmitter->infected[0], infectedName);
+	strcpy(transmitter->infected[1], "");
         transmitter->next = NULL;
 
         firstElement = transmitter;
@@ -108,6 +109,7 @@ void putTransmitter(char* transmitterName, char* infectedName) {
         person* transmitter = (person*)malloc(sizeof(person));
         strcpy(transmitter->name, transmitterName);
         strcpy(transmitter->infected[0], infectedName);
+	strcpy(transmitter->infected[1], "");
         transmitter->next = NULL;
         
         if (strCmp < 0) {
@@ -138,11 +140,13 @@ void putInfected(char* infectedName) {
 
     if (firstElement == NULL) {
 
-        person* transmitter = (person*)malloc(sizeof(person));
-        strcpy(transmitter->name, infectedName);
-        transmitter->next = NULL;
+        person* infected = (person*)malloc(sizeof(person));
+        strcpy(infected->name, infectedName);
+	strcpy(infected->infected[0],  "");
+	strcpy(infected->infected[1], "");
+        infected->next = NULL;
 
-        firstElement = transmitter;
+        firstElement = infected;
 
         return;
     }
@@ -154,6 +158,8 @@ void putInfected(char* infectedName) {
 
         person* infected = (person*)malloc(sizeof(person));
         strcpy(infected->name, infectedName);
+	strcpy(infected->infected[0],  "");
+	strcpy(infected->infected[1], "");
         infected->next = NULL;
 
         if (strCmp < 0) {
