@@ -18,6 +18,8 @@ person* firstElement = NULL;
 
 void putTransmitter(char* transmitterName, char* infectedName);
 void putInfected(char* infectedName);
+person* initializeTransmitter(char* transmitterName, char* infectedName);
+person* initialzeInfected(char* infectedName);
 
 int main(int argc, char const* argv[]) {
     FILE* file = fopen(argv[1], "r");
@@ -54,8 +56,11 @@ int main(int argc, char const* argv[]) {
 
         person* trash = currentPerson;        
         currentPerson = currentPerson->next;
+
         free(trash);
     }
+
+    free(currentPerson);
 
     return 0;
 }
@@ -69,11 +74,12 @@ int main(int argc, char const* argv[]) {
 void putTransmitter(char* transmitterName, char* infectedName) {
 
     if (firstElement == NULL) {
-
+        
+        /* printf("Mallocing transmitter %s inside firstElement == NULL in putTransmitter()\n", transmitterName); */
         person* transmitter = (person*)malloc(sizeof(person));
         strcpy(transmitter->name, transmitterName);
         strcpy(transmitter->infected[0], infectedName);
-	strcpy(transmitter->infected[1], "");
+	    strcpy(transmitter->infected[1], "");
         transmitter->next = NULL;
 
         firstElement = transmitter;
@@ -103,27 +109,24 @@ void putTransmitter(char* transmitterName, char* infectedName) {
                 }
             }
 
-            break;
+            return;
         }
-
-        person* transmitter = (person*)malloc(sizeof(person));
-        strcpy(transmitter->name, transmitterName);
-        strcpy(transmitter->infected[0], infectedName);
-	strcpy(transmitter->infected[1], "");
-        transmitter->next = NULL;
         
         if (strCmp < 0) {
             if (currentPerson->next == NULL) {
+                person* transmitter = initializeTransmitter(transmitterName, infectedName);
                 currentPerson->next = transmitter;
                 break;
             }
             
             if (strcmp(currentPerson->next->name, transmitterName) > 0) {
+                person* transmitter = initializeTransmitter(transmitterName, infectedName);
                 transmitter->next = currentPerson->next;
                 currentPerson->next = transmitter;
                 break;
             }
         } else {
+            person* transmitter = initializeTransmitter(transmitterName, infectedName);
             transmitter->next = currentPerson;
             firstElement = transmitter;
             break;
@@ -140,10 +143,11 @@ void putInfected(char* infectedName) {
 
     if (firstElement == NULL) {
 
+        /* printf("Mallocing infected %s inside firstElement == NULL in putInfected()\n", infectedName); */
         person* infected = (person*)malloc(sizeof(person));
         strcpy(infected->name, infectedName);
-	strcpy(infected->infected[0],  "");
-	strcpy(infected->infected[1], "");
+	    strcpy(infected->infected[0],  "");
+	    strcpy(infected->infected[1], "");
         infected->next = NULL;
 
         firstElement = infected;
@@ -156,22 +160,21 @@ void putInfected(char* infectedName) {
     while (currentPerson != NULL) {
         int strCmp = strcmp(currentPerson->name, infectedName);
 
-        person* infected = (person*)malloc(sizeof(person));
-        strcpy(infected->name, infectedName);
-	strcpy(infected->infected[0],  "");
-	strcpy(infected->infected[1], "");
-        infected->next = NULL;
+        if(strCmp == 0) return;
 
         if (strCmp < 0) {
             if (currentPerson->next == NULL) {
+                person* infected = initialzeInfected(infectedName);
                 currentPerson->next = infected;
                 break;
             } else if (strcmp(currentPerson->next->name, infectedName) > 0) {
+                person* infected = initialzeInfected(infectedName);
                 infected->next = currentPerson->next;
                 currentPerson->next = infected;
                 break;
             }
         } else {
+            person* infected = initialzeInfected(infectedName);
             infected->next = currentPerson;
             firstElement = infected;
             break;
@@ -179,4 +182,27 @@ void putInfected(char* infectedName) {
 
         currentPerson = currentPerson->next;
     }
+}
+
+person* initializeTransmitter(char* transmitterName, char* infectedName) {
+    /* printf("Mallocing transmitter %s\n", transmitterName); */
+
+    person* transmitter = (person*)malloc(sizeof(person));
+    strcpy(transmitter->name, transmitterName);
+    strcpy(transmitter->infected[0], infectedName);
+    strcpy(transmitter->infected[1], "");
+    transmitter->next = NULL;
+
+    return transmitter;
+}
+
+person* initialzeInfected(char* infectedName) {
+    /* printf("Mallocing infected %s\n", infectedName); */
+    person* infected = (person*)malloc(sizeof(person));
+    strcpy(infected->name, infectedName);
+    strcpy(infected->infected[0], "");
+    strcpy(infected->infected[1], "");
+    infected->next = NULL;
+
+    return infected;
 }
