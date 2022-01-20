@@ -51,8 +51,10 @@ int main(int argc, char const* argv[]) {
         } else {
             printf("%s\n", currentPerson->name);
         }
-        
+
+        person* trash = currentPerson;        
         currentPerson = currentPerson->next;
+        free(trash);
     }
 
     return 0;
