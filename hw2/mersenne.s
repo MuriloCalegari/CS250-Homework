@@ -32,8 +32,7 @@ main:
 	li $s4, 1 # loop index
 
 	for_loop:
-	mult $s0, $s1 # $v0 = $$0 * 2 [$s1]
-	mflo $s0 # 32 least significant bits from result of mult -> $s0
+	mul $s0, $s0, $s1 # $v0 = $$0 * 2 [$s1]
 	beq $s4, $s2, exit_loop # if i == n, exit loop
 	addi $s4, 1 ## increase loop index by one
 	j for_loop
