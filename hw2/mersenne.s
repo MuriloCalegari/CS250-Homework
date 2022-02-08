@@ -45,7 +45,7 @@ main:
 	move 	$a0, $s0
 	syscall
 
-	# Destroy stack management
+	# Destroy stack frame
 	lw $ra, 0($sp)
 	lw $s0, 4($sp)
 	lw $s1, 8($sp)
