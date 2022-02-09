@@ -76,11 +76,7 @@ void putTransmitter(char* transmitterName, char* infectedName) {
     if (firstElement == NULL) {
         
         /* printf("Mallocing transmitter %s inside firstElement == NULL in putTransmitter()\n", transmitterName); */
-        person* transmitter = (person*)malloc(sizeof(person));
-        strcpy(transmitter->name, transmitterName);
-        strcpy(transmitter->infected[0], infectedName);
-	    strcpy(transmitter->infected[1], "");
-        transmitter->next = NULL;
+        person* transmitter = initializeTransmitter(transmitterName, infectedName);
 
         firstElement = transmitter;
 
@@ -140,21 +136,6 @@ void putTransmitter(char* transmitterName, char* infectedName) {
     Same thing as putTransmitter, but inserting only the infected person as a patient
 */
 void putInfected(char* infectedName) {
-
-    if (firstElement == NULL) {
-
-        /* printf("Mallocing infected %s inside firstElement == NULL in putInfected()\n", infectedName); */
-        person* infected = (person*)malloc(sizeof(person));
-        strcpy(infected->name, infectedName);
-	    strcpy(infected->infected[0],  "");
-	    strcpy(infected->infected[1], "");
-        infected->next = NULL;
-
-        firstElement = infected;
-
-        return;
-    }
-
     person* currentPerson = firstElement;
 
     while (currentPerson != NULL) {
