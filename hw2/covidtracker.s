@@ -163,7 +163,7 @@ put_infected:
 				jal initialize_infected # $v0 = initializeInfected(infectedName) -> pointer
 				lw $s2, 96($s0) # $s2 = currentPerson->next
 				sw $s2, 96($v0) # infected->next = currentPerson->next
-				sw $v0, 0($s2) # currentPerson->next = infected
+				sw $v0, 96($s0) # currentPerson->next = infected
 				j infected_exit_while
 		infected_strcmp_else: # } else {
 			move $a0, $s3
