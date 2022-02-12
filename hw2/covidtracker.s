@@ -126,7 +126,7 @@ put_transmitter:
 	move $s0, $s7 # currentPerson = firstElement
 
 	while_put_transmitter:
-		beq $s0, $v0, transmitter_exit_while # if currentPerson == NULL ($0), break loop
+		beq $s0, $0, transmitter_exit_while # if currentPerson == NULL ($0), break loop
 		
 		# Compare currentPerson->name to infectedName
 		move $a0, $s0 # strcmp(currentPerson-name,
@@ -212,7 +212,7 @@ put_infected:
 	move $s0, $s7 # currentPerson = firstElement
 
 	while_put_infected:
-		beq $s0, $v0, infected_exit_while # if currentPerson == NULL ($0), break loop
+		beq $s0, $0, infected_exit_while # if currentPerson == NULL ($0), break loop
 		
 		# Compare currentPerson->name to infectedName
 		move $a0, $s0 # strcmp(currentPerson-name,

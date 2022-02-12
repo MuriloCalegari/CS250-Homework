@@ -1,14 +1,12 @@
 < BlueDevil Bucky
-> Bucky
+> BlueDevil
 < Bucky Clarissa
-> Clarissa
+> Bucky
 < Clarissa Drew
-> Drew
+> Clarissa
 < Drew Mario
-> Mario
+> Drew
 < Mario PrincessPeach
-> PrincessPeach
+> Mario
 < PrincessPeach Toad
-> Toad
-< Toad
-> 
+> PrincessPeach
