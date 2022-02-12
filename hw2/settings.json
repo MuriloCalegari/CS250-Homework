@@ -22,7 +22,8 @@
       { "desc": "Example input from HW document",             "args": ["tests/covidtracker_input_0.txt"], "diff": "float", "valgrind": false, "points": 5,  "visibility": "visible" },
       { "desc": "Asymmetric tree input",                      "args": ["tests/covidtracker_input_1.txt"], "diff": "float", "valgrind": false, "points": 5,  "visibility": "visible" },
       { "desc": "Symmetric tree input",                       "args": ["tests/covidtracker_input_2.txt"], "diff": "float", "valgrind": false, "points": 5,  "visibility": "visible" },
-      { "desc": "100 people",                                 "args": ["tests/covidtracker_input_3.txt"], "diff": "float", "valgrind": false, "points": 10,  "visibility": "visible" }
+      { "desc": "100 people",                                 "args": ["tests/covidtracker_input_3.txt"], "diff": "float", "valgrind": false, "points": 10,  "visibility": "visible" },
+      { "desc": "Mine - 1",                                   "args": ["tests/covidtracker_input_4.txt"], "diff": "float", "valgrind": false, "points": 10,  "visibility": "visible" }
     ]
   }
 }

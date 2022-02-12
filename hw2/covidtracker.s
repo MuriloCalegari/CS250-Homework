@@ -45,19 +45,19 @@ main:
 	li $a1, 32
 	syscall
 
-	# Call put_transmitter
-	la $a0, infected
-	la $a1, transmitter
-	jal put_transmitter
-
 	# Call put_infected
 	la $a0, infected
 	jal put_infected
 
+	# Call put_transmitter
+	la $a0, transmitter
+	#la $a1, transmitter
+	jal put_transmitter
+
 	# Clean buffers
 	la $a0, infected
 	jal strclr
-	la $a1, infected
+	la $a1, transmitter
 	jal strclr
 
 	j read_pair
@@ -99,8 +99,90 @@ main:
 
 ### MY FUNCTIONS ###
 # $a0 = infected, $a1 = transmitter
+### INTERNAL REGISTERS USED
+# $s0 = pointer to currentPerson in linked list
+# $s1 = result of string comparasion
+# $s2 = used for storing values of accesses to currentPerson
+# $s3 = saved infected_name argument
 put_transmitter:
-jr $ra
+	# Stack management
+	addi, $sp, $sp, -20
+	sw, $ra, 0($sp)
+	sw, $s0, 4($sp)
+	sw, $s1, 8($sp)
+	sw, $s2, 12($sp)
+	sw, $s3, 16($sp)
+
+	move $s3, $a0 # Save $a0 to $s3
+	bne $s7, $0, transmitter_firstelement_not_null
+
+	move $a0, $s3
+	jal initialize_infected
+	move $s7, $v0
+	j transmitter_exit_while
+
+	transmitter_firstelement_not_null:
+
+	move $s0, $s7 # currentPerson = firstElement
+
+	while_put_transmitter:
+		beq $s0, $v0, transmitter_exit_while # if currentPerson == NULL ($0), break loop
+		
+		# Compare currentPerson->name to infectedName
+		move $a0, $s0 # strcmp(currentPerson-name,
+		move $a1, $s3 # infectedName)
+		jal strcmp
+		move $s1, $v0 # save result of strcmp to $s1
+
+		beq $s1, $0, transmitter_exit_while # if strCmp == 0 return;
+		blt	$s1, $0, transmitter_strcmp_less_than_zero	# if $s1 < $0 then strcmp_infected_less_than
+		j transmitter_strcmp_else
+
+		transmitter_strcmp_less_than_zero: # if (strCmp < 0) {
+			lw $s2, 96($s0) # $s2 = value of currentPerson.next
+			beq $s2, $0, transmitter_currentperson_null 
+			j transmitter_else_currentperson_null
+			
+			transmitter_currentperson_null: # if (currentPerson->next == NULL) {
+				move $a0, $s3
+				jal initialize_infected # $v0 = initializeInfected(infectedName) -> pointer
+				sw $v0, 96($s0) # currentPerson->next = infected;
+				j transmitter_exit_while
+			transmitter_else_currentperson_null: # } else 
+				# Compare currentPerson->next->name to infectedName
+				lw $s2, 96($s0) # $s2 = value of currentPerson.next (pointer to first character)
+				move $a0, $s2 # strcmp(currentPerson->next->name,
+				move $a1, $s3 # infectedName)
+				jal strcmp
+				ble	$v0, $0, transmitter_advance_loop	# if $v0 <= $0 then transmitter_advance_loop
+				move $a0, $s3
+				jal initialize_infected # $v0 = initializeInfected(infectedName) -> pointer
+				lw $s2, 96($s0) # $s2 = currentPerson->next
+				sw $s2, 96($v0) # infected->next = currentPerson->next
+				sw $v0, 96($s0) # currentPerson->next = infected
+				j transmitter_exit_while
+		transmitter_strcmp_else: # } else {
+			move $a0, $s3
+			jal initialize_infected # $v0 = initializeInfected(infectedName) -> pointer
+			sw $s0, 96($v0) # infected->next = currentPerson
+			move $s7, $v0 # firstElement = infected;
+			j transmitter_exit_while
+		
+		transmitter_advance_loop:
+		lw $s0, 96($s0) # $s0 = currentPerson->next
+		j while_put_transmitter
+	
+	transmitter_exit_while:
+
+	# Collapse stack
+	lw, $ra, 0($sp)
+	lw, $s0, 4($sp)
+	lw, $s1, 8($sp)
+	lw, $s2, 12($sp)
+	lw, $s3, 16($sp)
+	addi, $sp, $sp, 20
+
+	jr $ra
 
 # $a0 = infected_name
 ### INTERNAL REGISTERS USED
@@ -323,7 +405,7 @@ strcmp:
 	jr $ra
 
 .data
-	infected: .space 32 ### TODO: Are these initialized to zero?
+	infected: .space 32
 	transmitter: .space 32
 	done: .asciiz "DONE\n"
 	empty_string: .asciiz ""
