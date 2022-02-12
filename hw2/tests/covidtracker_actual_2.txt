@@ -1,7 +1,7 @@
-BlueDevil
-Bucky
-Clarissa
-Drew
-Mario
-PrincessPeach
+BlueDevil Bucky
+Bucky Clarissa
+Clarissa Drew
+Drew Mario
+Mario PrincessPeach
+PrincessPeach Toad
 Toad

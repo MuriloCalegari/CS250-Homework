@@ -45,13 +45,19 @@ main:
 	li $a1, 32
 	syscall
 
+	## REMOVE \n FROM infected/transmitter
+	la $a0, transmitter
+	jal remove_nln
+	la $a0, infected
+	jal remove_nln
+
 	# Call put_infected
 	la $a0, infected
 	jal put_infected
 
 	# Call put_transmitter
 	la $a0, transmitter
-	#la $a1, transmitter
+	la $a1, infected
 	jal put_transmitter
 
 	# Clean buffers
@@ -73,12 +79,63 @@ main:
 	j print_name_currentperson
 
 	print_names_two_infected:
-	## TODO PRINT
+	# Print name of transmitter
+	li 		$v0, 4
+	move 	$a0, $t0
+	syscall
+
+	# Print space
+	li 		$v0, 4
+	la 		$a0, space
+	syscall
+	
+	# Print name of first infected
+	add $t1, $t0, 32
+	li 		$v0, 4
+	move 	$a0, $t1
+	syscall
+
+	# Print space
+	li 		$v0, 4
+	la 		$a0, space
+	syscall
+	
+	# Print name of second infected
+	add $t1, $t0, 64
+	li 		$v0, 4
+	move 	$a0, $t1
+	syscall
+
+	# Print new line
+	li 		$v0, 4
+	la 		$a0, new_line
+	syscall
+
 	lw $t0, 96($t0) # currentPerson = currentPerson->next;
 	j print_names
 	
 	print_names_one_infected:
-	## TODO PRINT
+	# Print name of transmitter
+	li 		$v0, 4
+	move 	$a0, $t0
+	syscall
+
+	# Print space
+	li 		$v0, 4
+	la 		$a0, space
+	syscall
+	
+	# Print name of first infected
+	add $t1, $t0, 32
+	li 		$v0, 4
+	move 	$a0, $t1
+	syscall
+
+	# Print new line
+	li 		$v0, 4
+	la 		$a0, new_line
+	syscall
+
 	lw $t0, 96($t0) # currentPerson = currentPerson->next;
 	j print_names
 	
@@ -86,6 +143,12 @@ main:
 	li 		$v0, 4
 	move 	$a0, $t0
 	syscall
+	
+	# Print new line
+	li 		$v0, 4
+	la 		$a0, new_line
+	syscall
+
 	lw $t0, 96($t0) # currentPerson = currentPerson->next;
 	j print_names
 	
@@ -98,22 +161,41 @@ main:
 	jr $ra
 
 ### MY FUNCTIONS ###
-# $a0 = infected, $a1 = transmitter
+
+# $a0 = string buffer to remove trailing new line
+remove_nln:
+	lb $t0, 0($a0)
+	beq $t0, $zero, done_clearing_nln
+	
+	beq $t0, 10, found_nln ## if char == '\n'
+	addi $a0, $a0, 1
+	j remove_nln
+
+	found_nln:
+	sb $zero, 0($a0)
+
+	done_clearing_nln:
+	jr $ra
+
+# $a0 = transmitter, $a1 = infected
 ### INTERNAL REGISTERS USED
 # $s0 = pointer to currentPerson in linked list
 # $s1 = result of string comparasion
 # $s2 = used for storing values of accesses to currentPerson
-# $s3 = saved infected_name argument
+# $s3 = saved transmitter_name argument
+# $s4 = saved infected_name argument
 put_transmitter:
 	# Stack management
-	addi, $sp, $sp, -20
+	addi, $sp, $sp, -24
 	sw, $ra, 0($sp)
 	sw, $s0, 4($sp)
 	sw, $s1, 8($sp)
 	sw, $s2, 12($sp)
 	sw, $s3, 16($sp)
+	sw, $s4, 20($sp)
 
 	move $s3, $a0 # Save $a0 to $s3
+	move $s4, $a1 # Save $a1 to $s4
 	bne $s7, $0, transmitter_firstelement_not_null
 
 	move $a0, $s3
@@ -128,13 +210,55 @@ put_transmitter:
 	while_put_transmitter:
 		beq $s0, $0, transmitter_exit_while # if currentPerson == NULL ($0), break loop
 		
-		# Compare currentPerson->name to infectedName
+		# Compare currentPerson->name to transmitterName
 		move $a0, $s0 # strcmp(currentPerson-name,
-		move $a1, $s3 # infectedName)
+		move $a1, $s3 # transmitterName)
 		jal strcmp
 		move $s1, $v0 # save result of strcmp to $s1
 
-		beq $s1, $0, transmitter_exit_while # if strCmp == 0 return;
+		bne $s1, $0, continue # if strCmp == 0 fill infected[0] or infected[1]
+		
+		lw $t0, 32($s0) # currentPerson->infected[0][0]
+		bne $t0, $0, first_string_not_null
+
+			# if (currentPerson->infected[0][0] == '\0') {
+			addi $t0, $s0, 32 # $t0 pointer to currentPerson->infected[0]
+			move $a0, $t0
+			move $a1, $s4
+			jal strcpy
+			j transmitter_exit_while
+
+		first_string_not_null:
+			addi $t0, $s0, 32 # $t0 pointer to currentPerson->infected[0]
+			move $a0, $t0
+			move $a1, $s4
+			jal strcmp
+
+			bge $v0, $0, else_put_infected_into_second_position
+			# if (strcmp(currentPerson->infected[0], infectedName) < 0) {
+				addi $t0, $s0, 64 # $t0 pointer to currentPerson->infected[1]
+				move $a0, $t0
+				move $a1, $s4
+				jal strcpy
+				j transmitter_exit_while
+
+			else_put_infected_into_second_position:
+				#strcpy(currentPerson->infected[1], currentPerson->infected[0]);
+				add $t0, $s0, 64 # $t0 pointer to currentPerson->infected[1]
+				move $a0, $t0
+				add $t0, $s0, 32 # $t0 pointer to currentPerson->infected[0]
+				move $a1, $t0
+				jal strcpy
+
+				#strcpy(currentPerson->infected[0], infectedName);
+				add $t0, $s0, 32
+				move $a0, $t0
+				move $a1, $s4
+				jal strcpy
+
+				j transmitter_exit_while
+
+		continue:
 		blt	$s1, $0, transmitter_strcmp_less_than_zero	# if $s1 < $0 then strcmp_infected_less_than
 		j transmitter_strcmp_else
 
@@ -144,26 +268,29 @@ put_transmitter:
 			j transmitter_else_currentperson_null
 			
 			transmitter_currentperson_null: # if (currentPerson->next == NULL) {
-				move $a0, $s3
-				jal initialize_infected # $v0 = initializeInfected(infectedName) -> pointer
+				move $a0, $s4
+				move $a1, $s3
+				jal initialize_transmitter
 				sw $v0, 96($s0) # currentPerson->next = infected;
 				j transmitter_exit_while
 			transmitter_else_currentperson_null: # } else 
-				# Compare currentPerson->next->name to infectedName
+				# Compare currentPerson->next->name to transmitterName
 				lw $s2, 96($s0) # $s2 = value of currentPerson.next (pointer to first character)
 				move $a0, $s2 # strcmp(currentPerson->next->name,
-				move $a1, $s3 # infectedName)
+				move $a1, $s3 # transmitterName)
 				jal strcmp
 				ble	$v0, $0, transmitter_advance_loop	# if $v0 <= $0 then transmitter_advance_loop
-				move $a0, $s3
-				jal initialize_infected # $v0 = initializeInfected(infectedName) -> pointer
+				move $a0, $s4
+				move $a1, $s3
+				jal initialize_transmitter
 				lw $s2, 96($s0) # $s2 = currentPerson->next
 				sw $s2, 96($v0) # infected->next = currentPerson->next
 				sw $v0, 96($s0) # currentPerson->next = infected
 				j transmitter_exit_while
 		transmitter_strcmp_else: # } else {
-			move $a0, $s3
-			jal initialize_infected # $v0 = initializeInfected(infectedName) -> pointer
+			move $a0, $s4
+			move $a1, $s3
+			jal initialize_transmitter
 			sw $s0, 96($v0) # infected->next = currentPerson
 			move $s7, $v0 # firstElement = infected;
 			j transmitter_exit_while
@@ -180,7 +307,8 @@ put_transmitter:
 	lw, $s1, 8($sp)
 	lw, $s2, 12($sp)
 	lw, $s3, 16($sp)
-	addi, $sp, $sp, 20
+	lw, $s4, 20($sp)
+	addi, $sp, $sp, 24
 
 	jr $ra
 
@@ -410,3 +538,4 @@ strcmp:
 	done: .asciiz "DONE\n"
 	empty_string: .asciiz ""
 	new_line: .asciiz "\n"
+	space: .asciiz " "
