@@ -8,10 +8,8 @@
 
 main:
 	# Stack management
-	addi $sp, $sp, -12
+	addi $sp, $sp, -4
 	sw $ra, 0($sp)
-	sw $t0, 4($sp) # n value
-	sw $t1, 8($sp) # f(n)
 	
 	# Print enter n message
 	li $v0, 4
@@ -34,9 +32,7 @@ main:
 
 	# Stack management
 	lw $ra, 0($sp)
-	lw $t0, 4($sp)
-	lw $t1, 8($sp)
-	addi $sp, $sp, 12
+	addi $sp, $sp, 4
 
 	jr $ra
 

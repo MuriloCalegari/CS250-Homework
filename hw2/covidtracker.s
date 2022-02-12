@@ -22,7 +22,7 @@
 
 main:
 	# Stack management
-	addi, $sp, $sp, -4
+	addi, $sp, $sp, -8
 	sw $ra, 0($sp)
 	sw $s7, 4($sp) # Pointer to first element
 	
@@ -37,7 +37,7 @@ main:
 	la $a0, infected
 	la $a1, done
 	jal strcmp
-	beq $v0, $0, print_names # if strcmp(infected, done) == 0, then go to print names
+	beq $v0, $0, print_names_start # if strcmp(infected, done) == 0, then go to print names
 
 	# Read transmitter
 	li $v0, 8
@@ -54,17 +54,53 @@ main:
 	la $a0, infected
 	jal put_infected
 
+	# Clean buffers
+	la $a0, infected
+	jal strclr
+	la $a1, infected
+	jal strclr
+
 	j read_pair
 
+	print_names_start:
+	move $t0, $s7 # currentPerson = $t0 = firstElement
 	print_names:
+	beq $t0, $0, exit
+	lb $t1, 64($t0) # $t1 = currentPerson->infected[1][0]
+	bne $t1, $0, print_names_two_infected # if currentPerson->infected[1][0] != '\0'
+	lb $t1, 32($t0) # $t1 = currentPerson->infected[0][0]
+	bne $t1, $0, print_names_one_infected # if currentPerson->infected[0][0] != '\0'
+	j print_name_currentperson
+
+	print_names_two_infected:
+	## TODO PRINT
+	lw $t0, 96($t0) # currentPerson = currentPerson->next;
+	j print_names
+	
+	print_names_one_infected:
+	## TODO PRINT
+	lw $t0, 96($t0) # currentPerson = currentPerson->next;
+	j print_names
+	
+	print_name_currentperson:
+	li 		$v0, 4
+	move 	$a0, $t0
+	syscall
+	lw $t0, 96($t0) # currentPerson = currentPerson->next;
+	j print_names
+	
+	exit:
+	# Collapse stack
+	lw $s7, 4($sp)
 	lw $ra, 0($sp)
-	addi, $sp, $sp, 4
+	addi, $sp, $sp, 8
 
 	jr $ra
 
 ### MY FUNCTIONS ###
 # $a0 = infected, $a1 = transmitter
 put_transmitter:
+jr $ra
 
 # $a0 = infected_name
 ### INTERNAL REGISTERS USED
@@ -81,8 +117,17 @@ put_infected:
 	sw, $s2, 12($sp)
 	sw, $s3, 16($sp)
 
-	move $s0, $s7 # currentPerson = firstElement
 	move $s3, $a0 # Save $a0 to $s3
+	bne $s7, $0, infected_firstelement_not_null
+
+	move $a0, $s3
+	jal initialize_infected
+	move $s7, $v0
+	j infected_exit_while
+
+	infected_firstelement_not_null:
+
+	move $s0, $s7 # currentPerson = firstElement
 
 	while_put_infected:
 		beq $s0, $v0, infected_exit_while # if currentPerson == NULL ($0), break loop
@@ -93,7 +138,7 @@ put_infected:
 		jal strcmp
 		move $s1, $v0 # save result of strcmp to $s1
 
-		beq $s1, $v0, infected_exit_while # if strCmp == 0 return;
+		beq $s1, $0, infected_exit_while # if strCmp == 0 return;
 		blt	$s1, $0, infected_strcmp_less_than_zero	# if $s1 < $0 then strcmp_infected_less_than
 		j infected_strcmp_else
 
@@ -113,12 +158,12 @@ put_infected:
 				move $a0, $s2 # strcmp(currentPerson->next->name,
 				move $a1, $s3 # infectedName)
 				jal strcmp
-				ble	$v0, $0, infected_exit_while	# if $v0 <= $0 then break loop
+				ble	$v0, $0, advance_loop	# if $v0 <= $0 then advance_loop
 				move $a0, $s3
 				jal initialize_infected # $v0 = initializeInfected(infectedName) -> pointer
 				lw $s2, 96($s0) # $s2 = currentPerson->next
 				sw $s2, 96($v0) # infected->next = currentPerson->next
-				sw $v0, $s2 # currentPerson->next = infected
+				sw $v0, 0($s2) # currentPerson->next = infected
 				j infected_exit_while
 		infected_strcmp_else: # } else {
 			move $a0, $s3
@@ -127,7 +172,9 @@ put_infected:
 			move $s7, $v0 # firstElement = infected;
 			j infected_exit_while
 		
+		advance_loop:
 		lw $s0, 96($s0) # $s0 = currentPerson->next
+		j while_put_infected
 	
 	infected_exit_while:
 
@@ -136,24 +183,28 @@ put_infected:
 	lw, $s0, 4($sp)
 	lw, $s1, 8($sp)
 	lw, $s2, 12($sp)
-	sw, $s3, 16($sp)
+	lw, $s3, 16($sp)
 	addi, $sp, $sp, 20
 
 	jr $ra
 
 # $a0 = pointer to first char of infected_name
+### INTERNAL REGISTERS USED
+# $s0 = copy of $a0
 initialize_infected:
 	# Stack management
-	addi, $sp, $sp, -4
+	addi, $sp, $sp, -8
 	sw $ra, 0($sp)
+	sw $s0, 4($sp)
+
+	move $s0, $a0
 
 	# Allocate 100B for my struct
 	li $v0, 9
 	li $a0, 100
 	syscall #$v0 = pointer to 100B space in memory
 
-	# $a0 = infectedName, so I move it to $a1
-	move $a1, $a0
+	move $a1, $s0 # src = infected_name
 	move $a0, $v0 # dest = first 32 bytes of struct
 	jal strcpy
 
@@ -175,28 +226,37 @@ initialize_infected:
 	addi $v0, $v0, -96 # Return $v0 to beggining of struct
 
 	lw $ra, 0($sp)
-	addi, $sp, $sp, 4
+	lw $s0, 4($sp)
+	addi, $sp, $sp, 8
 	
 	jr $ra
 	
 # $a0 = pointer to first char of infected_name
 # $a1 = pointer to first char of transmitter_name
+### INTERNAL REGISTERS USED
+# $s0 = copy of $a0
+# $s1 = copy of $a1
 initialize_transmitter:
 	# Stack management
-	addi, $sp, $sp, -4
+	addi, $sp, $sp, -12
 	sw $ra, 0($sp)
+	sw $s0, 4($sp)
+	sw $s1, 8($sp)
+
+	move $s0, $a0
+	move $s1, $a1
 
 	# Allocate 100B for my struct
 	li $v0, 9
 	li $a0, 100
 	syscall #$v0 = pointer to 100B space in memory
 
-	# $a1 is already transmitter name. So no need to move it
+	move $a1, $s1
 	move $a0, $v0 # dest = first 32 bytes of struct
 	jal strcpy
 
 	# Fill infected[0] with infected_name
-	move $a1, $a0 		# infected_name as src
+	move $a1, $s0 		# infected_name as src
 	addi $v0, $v0, 32 	# Move pointer to infected[0][0]
 	move $a0, $v0 		# pointer to infected[0][0] as dest
 	jal strcpy
@@ -214,12 +274,36 @@ initialize_transmitter:
 	addi $v0, $v0, -96 # Return $v0 to beggining of struct
 
 	lw $ra, 0($sp)
-	addi, $sp, $sp, 4
+	lw $s0, 4($sp)
+	lw $s1, 8($sp)
+	addi, $sp, $sp, 12
 	
 	jr $ra
 
-
 ### HELPER FUNCTIONS ###
+# $a0 = dest, $a1 = src
+strcpy:
+	lb $t0, 0($a1)
+	sb $t0, 0($a0)
+    beq $t0, $zero, done_copying
+	addi $a0, $a0, 1
+	addi $a1, $a1, 1
+	j strcpy
+
+	done_copying:
+	jr $ra
+
+# $a0 = string buffer to be zeroed out
+strclr:
+	lb $t0, 0($a0)
+	beq $t0, $zero, done_clearing
+	sb $zero, 0($a0)
+	addi $a0, $a0, 1
+	j strclr
+
+	done_clearing:
+	jr $ra
+
 # $a0, $a1 = strings to compare
 # $v0 = result of strcmp($a0, $a1)
 strcmp:
@@ -238,20 +322,9 @@ strcmp:
 	sub $v0, $t0, $t1
 	jr $ra
 
-# $a0 = dest, $a1 = src
-strcpy:
-	lb $t0, 0($a1)
-	beq $t0, $zero, done_copying
-	sb $t0, 0($a0)
-	addi $a0, $a0, 1
-	addi $a1, $a1, 1
-	j strcpy
-
-	done_copying:
-	jr $ra
-
 .data
 	infected: .space 32 ### TODO: Are these initialized to zero?
 	transmitter: .space 32
 	done: .asciiz "DONE\n"
 	empty_string: .asciiz ""
+	new_line: .asciiz "\n"
