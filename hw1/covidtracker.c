@@ -98,10 +98,10 @@ void putTransmitter(char* transmitterName, char* infectedName) {
                 strcpy(currentPerson->infected[0], infectedName);
             } else {
                 if (strcmp(currentPerson->infected[0], infectedName) < 0) {
-                    strcpy(currentPerson->infected[1], infectedName);;
+                    strcpy(currentPerson->infected[1], infectedName);
                 } else {
                     strcpy(currentPerson->infected[1], currentPerson->infected[0]);
-                    strcpy(currentPerson->infected[0], infectedName);;
+                    strcpy(currentPerson->infected[0], infectedName);
                 }
             }
 
