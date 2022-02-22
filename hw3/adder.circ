@@ -326,85 +326,15 @@ end TCL_Generic;
     <wire from="(280,70)" to="(280,130)"/>
     <wire from="(390,500)" to="(390,560)"/>
     <wire from="(1170,190)" to="(1170,300)"/>
-    <comp loc="(570,300)" name="bitFullAdder"/>
-    <comp lib="1" loc="(930,340)" name="XOR Gate">
+    <comp loc="(1290,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(370,340)" name="XOR Gate">
       <a name="facing" val="north"/>
       <a name="size" val="30"/>
     </comp>
-    <comp loc="(1050,300)" name="bitFullAdder"/>
-    <comp lib="1" loc="(850,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp loc="(1130,300)" name="bitFullAdder"/>
-    <comp lib="0" loc="(140,720)" name="Pin">
-      <a name="facing" val="north"/>
-      <a name="width" val="16"/>
-      <a name="label" val="a"/>
-    </comp>
-    <comp loc="(890,300)" name="bitFullAdder"/>
-    <comp loc="(650,300)" name="bitFullAdder"/>
     <comp lib="0" loc="(280,130)" name="Splitter">
       <a name="facing" val="south"/>
       <a name="fanout" val="16"/>
       <a name="incoming" val="16"/>
-    </comp>
-    <comp lib="1" loc="(1490,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp loc="(490,300)" name="bitFullAdder"/>
-    <comp lib="1" loc="(530,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp lib="1" loc="(290,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp lib="1" loc="(450,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp lib="0" loc="(150,390)" name="Pin">
-      <a name="label" val="sub"/>
-    </comp>
-    <comp lib="0" loc="(460,580)" name="Splitter">
-      <a name="facing" val="north"/>
-      <a name="fanout" val="16"/>
-      <a name="incoming" val="16"/>
-    </comp>
-    <comp lib="1" loc="(1170,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp loc="(410,300)" name="bitFullAdder"/>
-    <comp lib="1" loc="(1330,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp loc="(330,300)" name="bitFullAdder"/>
-    <comp lib="1" loc="(210,200)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp loc="(730,300)" name="bitFullAdder"/>
-    <comp loc="(1450,300)" name="bitFullAdder"/>
-    <comp lib="1" loc="(610,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
-    </comp>
-    <comp loc="(1370,300)" name="bitFullAdder"/>
-    <comp lib="0" loc="(460,580)" name="Tunnel">
-      <a name="facing" val="north"/>
-      <a name="width" val="16"/>
-      <a name="label" val="b_t"/>
-    </comp>
-    <comp loc="(1210,300)" name="bitFullAdder"/>
-    <comp loc="(1290,300)" name="bitFullAdder"/>
-    <comp lib="1" loc="(1410,340)" name="XOR Gate">
-      <a name="facing" val="north"/>
-      <a name="size" val="30"/>
     </comp>
     <comp lib="0" loc="(280,70)" name="Pin">
       <a name="facing" val="south"/>
@@ -413,31 +343,89 @@ end TCL_Generic;
       <a name="label" val="result"/>
       <a name="labelloc" val="east"/>
     </comp>
+    <comp loc="(730,300)" name="bitFullAdder"/>
     <comp lib="0" loc="(140,690)" name="Tunnel">
       <a name="facing" val="south"/>
       <a name="width" val="16"/>
       <a name="label" val="a_t"/>
     </comp>
-    <comp lib="1" loc="(1090,340)" name="XOR Gate">
+    <comp lib="0" loc="(150,390)" name="Pin">
+      <a name="label" val="sub"/>
+    </comp>
+    <comp loc="(1210,300)" name="bitFullAdder"/>
+    <comp loc="(330,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(1330,340)" name="XOR Gate">
       <a name="facing" val="north"/>
       <a name="size" val="30"/>
     </comp>
-    <comp loc="(810,300)" name="bitFullAdder"/>
-    <comp lib="0" loc="(140,580)" name="Tunnel">
-      <a name="facing" val="south"/>
-      <a name="width" val="16"/>
-      <a name="label" val="b_t"/>
+    <comp lib="1" loc="(210,200)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp loc="(250,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(850,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
     </comp>
     <comp lib="1" loc="(1250,340)" name="XOR Gate">
       <a name="facing" val="north"/>
       <a name="size" val="30"/>
     </comp>
-    <comp lib="0" loc="(140,610)" name="Pin">
+    <comp lib="0" loc="(460,580)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="width" val="16"/>
-      <a name="label" val="b"/>
+      <a name="label" val="b_t"/>
+    </comp>
+    <comp loc="(1450,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(610,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp loc="(1370,300)" name="bitFullAdder"/>
+    <comp lib="0" loc="(430,800)" name="Splitter">
+      <a name="facing" val="north"/>
+      <a name="fanout" val="16"/>
+      <a name="incoming" val="16"/>
     </comp>
     <comp lib="1" loc="(1010,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp loc="(890,300)" name="bitFullAdder"/>
+    <comp lib="0" loc="(140,580)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="width" val="16"/>
+      <a name="label" val="b_t"/>
+    </comp>
+    <comp lib="0" loc="(140,720)" name="Pin">
+      <a name="facing" val="north"/>
+      <a name="width" val="16"/>
+      <a name="label" val="A"/>
+    </comp>
+    <comp loc="(490,300)" name="bitFullAdder"/>
+    <comp loc="(970,300)" name="bitFullAdder"/>
+    <comp lib="0" loc="(210,170)" name="Pin">
+      <a name="facing" val="south"/>
+      <a name="output" val="true"/>
+      <a name="label" val="ovf"/>
+      <a name="labelloc" val="north"/>
+    </comp>
+    <comp loc="(570,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(290,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp lib="1" loc="(450,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp lib="0" loc="(460,580)" name="Splitter">
+      <a name="facing" val="north"/>
+      <a name="fanout" val="16"/>
+      <a name="incoming" val="16"/>
+    </comp>
+    <comp loc="(650,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(1490,340)" name="XOR Gate">
       <a name="facing" val="north"/>
       <a name="size" val="30"/>
     </comp>
@@ -445,31 +433,43 @@ end TCL_Generic;
       <a name="facing" val="north"/>
       <a name="size" val="30"/>
     </comp>
-    <comp loc="(250,300)" name="bitFullAdder"/>
-    <comp lib="0" loc="(210,170)" name="Pin">
-      <a name="facing" val="south"/>
-      <a name="output" val="true"/>
-      <a name="label" val="ovf"/>
-      <a name="labelloc" val="north"/>
-    </comp>
     <comp lib="1" loc="(690,340)" name="XOR Gate">
       <a name="facing" val="north"/>
       <a name="size" val="30"/>
     </comp>
-    <comp loc="(970,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(1410,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp loc="(810,300)" name="bitFullAdder"/>
+    <comp loc="(1130,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(1090,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp loc="(1050,300)" name="bitFullAdder"/>
+    <comp lib="1" loc="(930,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp loc="(410,300)" name="bitFullAdder"/>
     <comp lib="0" loc="(430,850)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="width" val="16"/>
       <a name="label" val="a_t"/>
     </comp>
-    <comp lib="1" loc="(370,340)" name="XOR Gate">
+    <comp lib="1" loc="(530,340)" name="XOR Gate">
       <a name="facing" val="north"/>
       <a name="size" val="30"/>
     </comp>
-    <comp lib="0" loc="(430,800)" name="Splitter">
+    <comp lib="0" loc="(140,610)" name="Pin">
       <a name="facing" val="north"/>
-      <a name="fanout" val="16"/>
-      <a name="incoming" val="16"/>
+      <a name="width" val="16"/>
+      <a name="label" val="B"/>
+    </comp>
+    <comp lib="1" loc="(1170,340)" name="XOR Gate">
+      <a name="facing" val="north"/>
+      <a name="size" val="30"/>
     </comp>
   </circuit>
   <circuit name="bitFullAdder">
@@ -515,32 +515,32 @@ end TCL_Generic;
     <wire from="(180,340)" to="(180,370)"/>
     <wire from="(350,160)" to="(390,160)"/>
     <wire from="(130,160)" to="(130,220)"/>
-    <comp lib="0" loc="(80,180)" name="Pin">
-      <a name="label" val="b"/>
-    </comp>
-    <comp lib="1" loc="(120,250)" name="AND Gate">
-      <a name="facing" val="south"/>
-      <a name="size" val="30"/>
-    </comp>
     <comp lib="0" loc="(390,160)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
       <a name="label" val="sum"/>
       <a name="labelloc" val="east"/>
     </comp>
-    <comp lib="0" loc="(80,160)" name="Pin">
-      <a name="label" val="a"/>
-    </comp>
     <comp lib="1" loc="(180,340)" name="OR Gate">
       <a name="facing" val="south"/>
       <a name="size" val="30"/>
+    </comp>
+    <comp lib="1" loc="(240,170)" name="XOR Gate">
+      <a name="size" val="30"/>
+    </comp>
+    <comp lib="1" loc="(270,250)" name="AND Gate">
+      <a name="facing" val="south"/>
+      <a name="size" val="30"/>
+    </comp>
+    <comp lib="0" loc="(80,180)" name="Pin">
+      <a name="label" val="b"/>
     </comp>
     <comp lib="0" loc="(280,120)" name="Pin">
       <a name="facing" val="south"/>
       <a name="label" val="c_in"/>
     </comp>
-    <comp lib="1" loc="(240,170)" name="XOR Gate">
-      <a name="size" val="30"/>
+    <comp lib="0" loc="(80,160)" name="Pin">
+      <a name="label" val="a"/>
     </comp>
     <comp lib="1" loc="(350,160)" name="XOR Gate">
       <a name="size" val="30"/>
@@ -551,7 +551,7 @@ end TCL_Generic;
       <a name="label" val="c_out"/>
       <a name="labelloc" val="east"/>
     </comp>
-    <comp lib="1" loc="(270,250)" name="AND Gate">
+    <comp lib="1" loc="(120,250)" name="AND Gate">
       <a name="facing" val="south"/>
       <a name="size" val="30"/>
     </comp>
