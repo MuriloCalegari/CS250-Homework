@@ -1,0 +1,64 @@
+{
+  "test_dir": "tests",
+  "mode": "logisim",
+  "test_suite_names": ["circuit1a", "circuit1c", "adder", "fsm"],
+  "non_zero_exit_status_penalty": 1.0,
+  "memory_penalty": 1.0,
+  "late_penalty": 0.1,
+  "test_suites": {
+    "circuit1a": [
+      { "desc": "A=0, B=0, C=0",  "args": ["-ip", "A=0,B=0,C=0", "-c", "0"], "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.25 },
+      { "desc": "A=0, B=0, C=1",  "args": ["-ip", "A=0,B=0,C=1", "-c", "0"], "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.25 },
+      { "desc": "A=1, B=0, C=1",  "args": ["-ip", "A=1,B=0,C=1", "-c", "0"], "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.25 },
+      { "desc": "A=1, B=1, C=1",  "args": ["-ip", "A=1,B=1,C=1", "-c", "0"], "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.25 }
+    ],
+    "circuit1c": [
+      { "desc": "A=0, B=0, C=0",  "args": ["-ip", "A=0,B=0,C=0", "-c", "0"],  "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.25 },
+      { "desc": "A=0, B=0, C=1",  "args": ["-ip", "A=0,B=0,C=1", "-c", "0"],  "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.25 },
+      { "desc": "A=0, B=1, C=0",  "args": ["-ip", "A=0,B=1,C=0", "-c", "0"],  "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.25 },
+      { "desc": "A=1, B=0, C=0",  "args": ["-ip", "A=1,B=0,C=0", "-c", "0"],  "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.25 }
+    ],
+
+    "adder": [
+        { "desc": "A=0xABCD, B=0x5678, sub=0", "args": ["-c", "0", "-ip", "A=0xABCD,B=0x5678,sub=0", "-of", "h"], "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.5 },
+        { "desc": "A=0x7531, B=0x6420, sub=1", "args": ["-c", "0", "-ip", "A=0x7531,B=0x6420,sub=1", "-of", "h"], "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.5 },
+        { "desc": "A=0x9BDF, B=0x8ACE, sub=0", "args": ["-c", "0", "-ip", "A=0x9BDF,B=0x8ACE,sub=0", "-of", "h"], "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.5 },
+        { "desc": "A=0xABCD, B=0x5678, sub=1", "args": ["-c", "0", "-ip", "A=0xABCD,B=0x5678,sub=1", "-of", "h"], "diff": "normal", "valgrind": false, "visibility": "visible", "points": 1.5 }
+    ],
+    "fsm": [
+      { "desc": "constant input: in1=0,in2=0, total cycles=5", "args": ["-ip", "in1=0,in2=0", "-c", "5"],  "diff": "normal", "valgrind": false, "visibility": "visible", "points": 5 },
+      { "desc": "constant input: in1=1,in2=0, total cycles=5", "args": ["-ip", "in1=1,in2=0", "-c" ,"5"],  "diff": "normal", "valgrind": false, "visibility": "visible", "points": 5 },
+      { "desc": "variable input per cycle, total cycles=5", "args": ["-ic", "1,in1=0,in2=0:2,in1=0,in2=0:3,in1=1,in2=0:4,in1=1,in2=1:5,in1=1,in2=0", "-c", "5"],  "diff": "normal", "valgrind": false, "visibility": "visible", "points": 6 }
+    ]
+  },
+  "disallowed_components": {
+    "circuit1a": [
+      {
+        "penalty": 0.5,
+        "components": ["Button", "Joystick", "Keyboard", "LED", "7-Segment Display", "Hex Digit Display", "LED", "TTY", "T Flip-Flop", "J-K Flip-Flop", "S-R Flip-Flop", "Register", "Counter", "Shift Register", "Random", "RAM", "ROM", "Adder", "Subtractor", "Multiplier", "Divider", "Negator", "Comparator", "Shifter", "BitAdder", "BitFinder", "Demultiplexer", "Decoder", "Priority Encoder", "BitSelector", "Buffer", "Odd Parity", "Even Parity", "Controlled Buffer", "Controlled Inverter", "Pull Resistor", "Transistor", "Transmission Gate", "Bit Extender"]
+      }
+    ],
+    "circuit1c": [
+      {
+        "penalty": 0.5,
+        "components": ["Button", "Joystick", "Keyboard", "LED", "7-Segment Display", "Hex Digit Display", "LED", "TTY", "T Flip-Flop", "J-K Flip-Flop", "S-R Flip-Flop", "Register", "Counter", "Shift Register", "Random", "RAM", "ROM", "Adder", "Subtractor", "Multiplier", "Divider", "Negator", "Comparator", "Shifter", "BitAdder", "BitFinder", "Demultiplexer", "Decoder", "Priority Encoder", "BitSelector", "Buffer", "Odd Parity", "Even Parity", "Controlled Buffer", "Controlled Inverter", "Pull Resistor", "Transistor", "Transmission Gate", "Bit Extender"]
+      }
+    ],
+    "adder": [
+      {
+        "penalty": 0.5,
+        "components": ["Button", "Joystick", "Keyboard", "LED", "7-Segment Display", "Hex Digit Display", "LED", "TTY", "T Flip-Flop", "J-K Flip-Flop", "S-R Flip-Flop", "Register", "Counter", "Shift Register", "Random", "RAM", "ROM", "Multiplier", "Divider", "Negator", "Comparator", "Shifter", "BitAdder", "BitFinder", "Demultiplexer", "Decoder", "Priority Encoder", "BitSelector", "Buffer", "Odd Parity", "Even Parity", "Controlled Buffer", "Controlled Inverter", "Pull Resistor", "Transistor", "Transmission Gate", "Bit Extender"]
+      },
+      {
+        "penalty": 0.0,
+        "components": ["Adder", "Subtractor"]
+      }
+    ],
+    "fsm": [
+      {
+        "penalty": 0.5,
+        "components": ["Joystick", "Keyboard", "LED", "7-Segment Display", "Hex Digit Display", "LED", "TTY", "T Flip-Flop", "J-K Flip-Flop", "S-R Flip-Flop", "Register", "Counter", "Shift Register", "Random", "RAM", "ROM", "Adder", "Subtractor", "Multiplier", "Divider", "Negator", "Comparator", "Shifter", "BitAdder", "BitFinder", "Demultiplexer", "Decoder", "Priority Encoder", "BitSelector", "Buffer", "Odd Parity", "Even Parity", "Controlled Buffer", "Controlled Inverter", "Pull Resistor", "Transistor", "Transmission Gate", "Bit Extender"]
+      }
+    ]
+  }
+}
