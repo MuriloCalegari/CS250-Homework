@@ -1,0 +1,5 @@
+cachesize: 16, nWays: 1, storeAlg: 5, blocksize: 8
+store 0000 4 deadbeef
+Processing store. address: 0, size: 4, data: deadbeef
+load 0001 4
+Processing load. address: 1, size: 4

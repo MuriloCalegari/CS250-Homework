@@ -1,0 +1,282 @@
+1,93c1,187
+< store 0000 miss
+< load 0000 hit 63
+< load 0000 hit 63
+< store 0000 hit
+< load 0000 hit 99
+< store 0400 miss
+< load 0400 hit 89
+< load 0000 hit 99
+< load 0400 hit 89
+< store 0000 hit
+< load 0000 hit b5
+< store 0400 hit
+< load 0400 hit 78
+< store 0800 miss
+< load 0800 hit a0
+< store 0c00 miss
+< load 0c00 hit 3a
+< load 0000 miss b5
+< load 0400 miss 78
+< load 0800 miss a0
+< load 0c00 miss 3a
+< store 0000 miss
+< load 0000 hit c9
+< store 0400 miss
+< load 0400 hit 11
+< store 0800 miss
+< load 0800 hit 31
+< store 0c00 miss
+< load 0c00 hit a4
+< store 1000 miss
+< load 1000 hit 5a
+< store 1400 miss
+< load 1400 hit 6f
+< store 1800 miss
+< load 1800 hit 3a
+< store 1c00 miss
+< load 1c00 hit b6
+< load 0000 miss c9
+< load 0400 miss 11
+< load 0800 miss 31
+< load 0c00 miss a4
+< load 1000 miss 5a
+< load 1400 miss 6f
+< load 1800 miss 3a
+< load 1c00 miss b6
+< store 0000 miss
+< load 0000 hit 49
+< store 0400 miss
+< load 0400 hit b0
+< store 0800 miss
+< load 0800 hit 0f
+< store 0c00 miss
+< load 0c00 hit 91
+< store 1000 miss
+< load 1000 hit f6
+< store 1400 miss
+< load 1400 hit 8e
+< store 1800 miss
+< load 1800 hit 55
+< store 1c00 miss
+< load 1c00 hit f0
+< store 2000 miss
+< load 2000 hit 37
+< store 2400 miss
+< load 2400 hit cf
+< store 2800 miss
+< load 2800 hit 52
+< store 2c00 miss
+< load 2c00 hit 1f
+< store 3000 miss
+< load 3000 hit cc
+< store 3400 miss
+< load 3400 hit c1
+< store 3800 miss
+< load 3800 hit 11
+< store 3c00 miss
+< load 3c00 hit 1c
+< load 0000 miss 49
+< load 0400 miss b0
+< load 0800 miss 0f
+< load 0c00 miss 91
+< load 1000 miss f6
+< load 1400 miss 8e
+< load 1800 miss 55
+< load 1c00 miss f0
+< load 2000 miss 37
+< load 2400 miss cf
+< load 2800 miss 52
+< load 2c00 miss 1f
+< load 3000 miss cc
+< load 3400 miss c1
+< load 3800 miss 11
+< load 3c00 miss 1c
+---
+> cachesize: 2, nWays: 1, storeAlg: 5, blocksize: 64
+> store 0000 1 63
+> Processing store. address: 0, size: 1, data: 63
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> store 0000 1 99
+> Processing store. address: 0, size: 1, data: 99
+> load 0000 1
+> Processing load. address: 0, size: 1
+> store 0400 1 89
+> Processing store. address: 400, size: 1, data: 89
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> store 0000 1 b5
+> Processing store. address: 0, size: 1, data: b5
+> load 0000 1
+> Processing load. address: 0, size: 1
+> store 0400 1 78
+> Processing store. address: 400, size: 1, data: 78
+> load 0400 1
+> Processing load. address: 400, size: 1
+> store 0800 1 a0
+> Processing store. address: 800, size: 1, data: a0
+> load 0800 1
+> Processing load. address: 800, size: 1
+> store 0c00 1 3a
+> Processing store. address: c00, size: 1, data: 3a
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> store 0000 1 c9
+> Processing store. address: 0, size: 1, data: c9
+> load 0000 1
+> Processing load. address: 0, size: 1
+> store 0400 1 11
+> Processing store. address: 400, size: 1, data: 11
+> load 0400 1
+> Processing load. address: 400, size: 1
+> store 0800 1 31
+> Processing store. address: 800, size: 1, data: 31
+> load 0800 1
+> Processing load. address: 800, size: 1
+> store 0c00 1 a4
+> Processing store. address: c00, size: 1, data: a4
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> store 1000 1 5a
+> Processing store. address: 1000, size: 1, data: 5a
+> load 1000 1
+> Processing load. address: 1000, size: 1
+> store 1400 1 6f
+> Processing store. address: 1400, size: 1, data: 6f
+> load 1400 1
+> Processing load. address: 1400, size: 1
+> store 1800 1 3a
+> Processing store. address: 1800, size: 1, data: 3a
+> load 1800 1
+> Processing load. address: 1800, size: 1
+> store 1c00 1 b6
+> Processing store. address: 1c00, size: 1, data: b6
+> load 1c00 1
+> Processing load. address: 1c00, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 1000 1
+> Processing load. address: 1000, size: 1
+> load 1400 1
+> Processing load. address: 1400, size: 1
+> load 1800 1
+> Processing load. address: 1800, size: 1
+> load 1c00 1
+> Processing load. address: 1c00, size: 1
+> store 0000 1 49
+> Processing store. address: 0, size: 1, data: 49
+> load 0000 1
+> Processing load. address: 0, size: 1
+> store 0400 1 b0
+> Processing store. address: 400, size: 1, data: b0
+> load 0400 1
+> Processing load. address: 400, size: 1
+> store 0800 1 0f
+> Processing store. address: 800, size: 1, data: f
+> load 0800 1
+> Processing load. address: 800, size: 1
+> store 0c00 1 91
+> Processing store. address: c00, size: 1, data: 91
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> store 1000 1 f6
+> Processing store. address: 1000, size: 1, data: f6
+> load 1000 1
+> Processing load. address: 1000, size: 1
+> store 1400 1 8e
+> Processing store. address: 1400, size: 1, data: 8e
+> load 1400 1
+> Processing load. address: 1400, size: 1
+> store 1800 1 55
+> Processing store. address: 1800, size: 1, data: 55
+> load 1800 1
+> Processing load. address: 1800, size: 1
+> store 1c00 1 f0
+> Processing store. address: 1c00, size: 1, data: f0
+> load 1c00 1
+> Processing load. address: 1c00, size: 1
+> store 2000 1 37
+> Processing store. address: 2000, size: 1, data: 37
+> load 2000 1
+> Processing load. address: 2000, size: 1
+> store 2400 1 cf
+> Processing store. address: 2400, size: 1, data: cf
+> load 2400 1
+> Processing load. address: 2400, size: 1
+> store 2800 1 52
+> Processing store. address: 2800, size: 1, data: 52
+> load 2800 1
+> Processing load. address: 2800, size: 1
+> store 2c00 1 1f
+> Processing store. address: 2c00, size: 1, data: 1f
+> load 2c00 1
+> Processing load. address: 2c00, size: 1
+> store 3000 1 cc
+> Processing store. address: 3000, size: 1, data: cc
+> load 3000 1
+> Processing load. address: 3000, size: 1
+> store 3400 1 c1
+> Processing store. address: 3400, size: 1, data: c1
+> load 3400 1
+> Processing load. address: 3400, size: 1
+> store 3800 1 11
+> Processing store. address: 3800, size: 1, data: 11
+> load 3800 1
+> Processing load. address: 3800, size: 1
+> store 3c00 1 1c
+> Processing store. address: 3c00, size: 1, data: 1c
+> load 3c00 1
+> Processing load. address: 3c00, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 1000 1
+> Processing load. address: 1000, size: 1
+> load 1400 1
+> Processing load. address: 1400, size: 1
+> load 1800 1
+> Processing load. address: 1800, size: 1
+> load 1c00 1
+> Processing load. address: 1c00, size: 1
+> load 2000 1
+> Processing load. address: 2000, size: 1
+> load 2400 1
+> Processing load. address: 2400, size: 1
+> load 2800 1
+> Processing load. address: 2800, size: 1
+> load 2c00 1
+> Processing load. address: 2c00, size: 1
+> load 3000 1
+> Processing load. address: 3000, size: 1
+> load 3400 1
+> Processing load. address: 3400, size: 1
+> load 3800 1
+> Processing load. address: 3800, size: 1
+> load 3c00 1
+> Processing load. address: 3c00, size: 1

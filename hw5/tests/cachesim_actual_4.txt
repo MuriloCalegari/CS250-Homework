@@ -1,0 +1,81 @@
+cachesize: 2, nWays: 2, storeAlg: 10, blocksize: 64
+load 0000 1
+Processing load. address: 0, size: 1
+load 003f 1
+Processing load. address: 3f, size: 1
+load 0040 1
+Processing load. address: 40, size: 1
+load 007f 1
+Processing load. address: 7f, size: 1
+load 0800 1
+Processing load. address: 800, size: 1
+load 083f 1
+Processing load. address: 83f, size: 1
+load 0840 1
+Processing load. address: 840, size: 1
+load 087f 1
+Processing load. address: 87f, size: 1
+load 0000 1
+Processing load. address: 0, size: 1
+load 003f 1
+Processing load. address: 3f, size: 1
+load 0040 1
+Processing load. address: 40, size: 1
+load 007f 1
+Processing load. address: 7f, size: 1
+load 0800 1
+Processing load. address: 800, size: 1
+load 083f 1
+Processing load. address: 83f, size: 1
+load 0840 1
+Processing load. address: 840, size: 1
+load 087f 1
+Processing load. address: 87f, size: 1
+load 100a 1
+Processing load. address: 100a, size: 1
+load 104b 1
+Processing load. address: 104b, size: 1
+load 108c 1
+Processing load. address: 108c, size: 1
+load 10cd 1
+Processing load. address: 10cd, size: 1
+load 110e 1
+Processing load. address: 110e, size: 1
+load 114f 1
+Processing load. address: 114f, size: 1
+load 0094 1
+Processing load. address: 94, size: 1
+load 0895 1
+Processing load. address: 895, size: 1
+load 1096 1
+Processing load. address: 1096, size: 1
+load 1897 1
+Processing load. address: 1897, size: 1
+load 2098 1
+Processing load. address: 2098, size: 1
+load 2899 1
+Processing load. address: 2899, size: 1
+load 100a 1
+Processing load. address: 100a, size: 1
+load 104b 1
+Processing load. address: 104b, size: 1
+load 108c 1
+Processing load. address: 108c, size: 1
+load 10cd 1
+Processing load. address: 10cd, size: 1
+load 110e 1
+Processing load. address: 110e, size: 1
+load 114f 1
+Processing load. address: 114f, size: 1
+load 0094 1
+Processing load. address: 94, size: 1
+load 0895 1
+Processing load. address: 895, size: 1
+load 1096 1
+Processing load. address: 1096, size: 1
+load 1897 1
+Processing load. address: 1897, size: 1
+load 2098 1
+Processing load. address: 2098, size: 1
+load 2899 1
+Processing load. address: 2899, size: 1

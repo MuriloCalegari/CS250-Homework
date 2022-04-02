@@ -1,0 +1,51 @@
+1,16c1,33
+< load 0000 miss 00000000
+< store 0000 hit
+< load 0004 miss 00000000
+< store 0004 hit
+< load 0008 miss 00000000
+< store 0008 hit
+< load 000c miss 00000000
+< store 000c hit
+< load 0010 miss 00000000
+< store 0010 hit
+< load 0014 miss 00000000
+< store 0014 hit
+< load 0018 miss 00000000
+< store 0018 hit
+< load 001c miss 00000000
+< store 001c hit
+---
+> cachesize: 8, nWays: 1, storeAlg: 10, blocksize: 4
+> load 0000 4
+> Processing load. address: 0, size: 4
+> store 0000 4 12345678
+> Processing store. address: 0, size: 4, data: 12345678
+> load 0004 4
+> Processing load. address: 4, size: 4
+> store 0004 4 c0debeef
+> Processing store. address: 4, size: 4, data: c0debeef
+> load 0008 4
+> Processing load. address: 8, size: 4
+> store 0008 4 11223344
+> Processing store. address: 8, size: 4, data: 11223344
+> load 000c 4
+> Processing load. address: c, size: 4
+> store 000c 4 55667788
+> Processing store. address: c, size: 4, data: 55667788
+> load 0010 4
+> Processing load. address: 10, size: 4
+> store 0010 4 99aabbcc
+> Processing store. address: 10, size: 4, data: 99aabbcc
+> load 0014 4
+> Processing load. address: 14, size: 4
+> store 0014 4 ddeeff00
+> Processing store. address: 14, size: 4, data: ddeeff00
+> load 0018 4
+> Processing load. address: 18, size: 4
+> store 0018 4 feedcafe
+> Processing store. address: 18, size: 4, data: feedcafe
+> load 001c 4
+> Processing load. address: 1c, size: 4
+> store 001c 4 ece25001
+> Processing store. address: 1c, size: 4, data: ece25001

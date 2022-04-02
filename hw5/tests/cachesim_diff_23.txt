@@ -1,0 +1,9 @@
+1,2c1,5
+< store 0000 miss
+< load 0000 hit deadbeef
+---
+> cachesize: 16, nWays: 1, storeAlg: 5, blocksize: 8
+> store 0000 4 deadbeef
+> Processing store. address: 0, size: 4, data: deadbeef
+> load 0000 4
+> Processing load. address: 0, size: 4

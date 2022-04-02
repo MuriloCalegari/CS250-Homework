@@ -1,0 +1,189 @@
+1,62c1,125
+< load 0000 miss 00
+< load 0000 hit 00
+< load 0000 hit 00
+< load 0400 miss 00
+< load 0000 miss 00
+< load 0400 miss 00
+< load 0000 miss 00
+< load 0400 miss 00
+< load 0800 miss 00
+< load 0c00 miss 00
+< load 0000 miss 00
+< load 0400 miss 00
+< load 0800 miss 00
+< load 0c00 miss 00
+< load 0000 miss 00
+< load 0400 miss 00
+< load 0800 miss 00
+< load 0c00 miss 00
+< load 1000 miss 00
+< load 1400 miss 00
+< load 1800 miss 00
+< load 1c00 miss 00
+< load 0000 miss 00
+< load 0400 miss 00
+< load 0800 miss 00
+< load 0c00 miss 00
+< load 1000 miss 00
+< load 1400 miss 00
+< load 1800 miss 00
+< load 1c00 miss 00
+< load 0000 miss 00
+< load 0400 miss 00
+< load 0800 miss 00
+< load 0c00 miss 00
+< load 1000 miss 00
+< load 1400 miss 00
+< load 1800 miss 00
+< load 1c00 miss 00
+< load 2000 miss 00
+< load 2400 miss 00
+< load 2800 miss 00
+< load 2c00 miss 00
+< load 3000 miss 00
+< load 3400 miss 00
+< load 3800 miss 00
+< load 3c00 miss 00
+< load 0000 miss 00
+< load 0400 miss 00
+< load 0800 miss 00
+< load 0c00 miss 00
+< load 1000 miss 00
+< load 1400 miss 00
+< load 1800 miss 00
+< load 1c00 miss 00
+< load 2000 miss 00
+< load 2400 miss 00
+< load 2800 miss 00
+< load 2c00 miss 00
+< load 3000 miss 00
+< load 3400 miss 00
+< load 3800 miss 00
+< load 3c00 miss 00
+---
+> cachesize: 1, nWays: 1, storeAlg: 10, blocksize: 64
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 1000 1
+> Processing load. address: 1000, size: 1
+> load 1400 1
+> Processing load. address: 1400, size: 1
+> load 1800 1
+> Processing load. address: 1800, size: 1
+> load 1c00 1
+> Processing load. address: 1c00, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 1000 1
+> Processing load. address: 1000, size: 1
+> load 1400 1
+> Processing load. address: 1400, size: 1
+> load 1800 1
+> Processing load. address: 1800, size: 1
+> load 1c00 1
+> Processing load. address: 1c00, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 1000 1
+> Processing load. address: 1000, size: 1
+> load 1400 1
+> Processing load. address: 1400, size: 1
+> load 1800 1
+> Processing load. address: 1800, size: 1
+> load 1c00 1
+> Processing load. address: 1c00, size: 1
+> load 2000 1
+> Processing load. address: 2000, size: 1
+> load 2400 1
+> Processing load. address: 2400, size: 1
+> load 2800 1
+> Processing load. address: 2800, size: 1
+> load 2c00 1
+> Processing load. address: 2c00, size: 1
+> load 3000 1
+> Processing load. address: 3000, size: 1
+> load 3400 1
+> Processing load. address: 3400, size: 1
+> load 3800 1
+> Processing load. address: 3800, size: 1
+> load 3c00 1
+> Processing load. address: 3c00, size: 1
+> load 0000 1
+> Processing load. address: 0, size: 1
+> load 0400 1
+> Processing load. address: 400, size: 1
+> load 0800 1
+> Processing load. address: 800, size: 1
+> load 0c00 1
+> Processing load. address: c00, size: 1
+> load 1000 1
+> Processing load. address: 1000, size: 1
+> load 1400 1
+> Processing load. address: 1400, size: 1
+> load 1800 1
+> Processing load. address: 1800, size: 1
+> load 1c00 1
+> Processing load. address: 1c00, size: 1
+> load 2000 1
+> Processing load. address: 2000, size: 1
+> load 2400 1
+> Processing load. address: 2400, size: 1
+> load 2800 1
+> Processing load. address: 2800, size: 1
+> load 2c00 1
+> Processing load. address: 2c00, size: 1
+> load 3000 1
+> Processing load. address: 3000, size: 1
+> load 3400 1
+> Processing load. address: 3400, size: 1
+> load 3800 1
+> Processing load. address: 3800, size: 1
+> load 3c00 1
+> Processing load. address: 3c00, size: 1
