@@ -10,9 +10,9 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-                "traces/beef1.txt",
+                "traces/_custom1.txt",
                 "16",
-                "1",
+                "2",
                 "wt",
                 "8"
             ],
