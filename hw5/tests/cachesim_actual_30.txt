@@ -1,17 +1,8 @@
-cachesize: 8, nWays: 1, storeAlg: 5, blocksize: 4
-load 0000 1
-Processing load. address: 0, size: 1
-load 0004 1
-Processing load. address: 4, size: 1
-load 0008 1
-Processing load. address: 8, size: 1
-load 000c 1
-Processing load. address: c, size: 1
-load 0010 1
-Processing load. address: 10, size: 1
-load 0014 1
-Processing load. address: 14, size: 1
-load 0018 1
-Processing load. address: 18, size: 1
-load 001c 1
-Processing load. address: 1c, size: 1
+load 0000 miss 00
+load 0004 miss 00
+load 0008 miss 00
+load 000c miss 00
+load 0010 miss 00
+load 0014 miss 00
+load 0018 miss 00
+load 001c miss 00

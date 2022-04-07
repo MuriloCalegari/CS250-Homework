@@ -1,9 +1,0 @@
-1,2c1,5
-< store 0001 miss
-< load 0000 miss 00deadbe
----
-> cachesize: 16, nWays: 1, storeAlg: 10, blocksize: 8
-> store 0001 4 deadbeef
-> Processing store. address: 1, size: 4, data: deadbeef
-> load 0000 4
-> Processing load. address: 0, size: 4

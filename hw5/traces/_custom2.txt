@@ -1,0 +1,8 @@
+store 0000 1 63
+load 0000 1
+load 0000 1
+store 0000 1 99
+load 0000 1
+store 0400 1 89
+load 0400 1
+load 0000 1

@@ -39,9 +39,11 @@ FILE* file;
 typedef struct way way;
 struct way {
 	int valid;
+	int index;
 	int tag;
 	char data[BLOCK_MAX_SIZE];
 	int LRUT; // used for LRU algorithm
+	int dirty; // whether the way has been written and not updated on memory
 };
 
 // Memory
@@ -57,11 +59,15 @@ way* getSet(int set);
 int computeIndex(int address);
 int computeOffset(int address);
 int computeTag(int address);
+int computeAddressFromWay(way* way);
 
 void updateLRUT(int index, int ignoreTag);
+way* findTargetWay(int address);
 void bringBlockToCache(int address);
+void writeToWay(way* targetWay, char* data, int address, int size);
 void printData(int size, char* data);
 void printLoadResult(char* data, int address, int size, int isHit);
+void printStoreResult(int address, int isHit);
 
 way* cache;
 
@@ -148,11 +154,11 @@ int initialize(char const *argv[]) {
 
 	cache = (way*)calloc((nSets * nWays), sizeof(way));
 
-	//for(int i = 0; i < nSets; i++) {
-	//	for(int j = 0; j < nWays; j++) {
-	//		getFrame(i, j)->valid = 0;
-	//	}
-	//}
+	for(int i = 0; i < nSets; i++) {
+		for(int j = 0; j < nWays; j++) {
+			getFrame(i, j)->index = i;
+		}
+	}
 
 	return 0;
 }
@@ -173,7 +179,7 @@ int computeIndex(int address) {
 	int indexMask = (((0xFFFFFFFF >> offsetSize) << offsetSize) << (tagSize + (sizeof(int) * __CHAR_BIT__) - 16)) >> (tagSize + (sizeof(int) * __CHAR_BIT__) - 16);
 	int index = (address & indexMask) >> offsetSize;
 
-	if (DEBUG) printf("Mask is %x; index result is %d\n", indexMask, index);
+	//if (DEBUG) printf("Mask is %x; index result is %d\n", indexMask, index);
 
 	return index;
 }
@@ -182,7 +188,7 @@ int computeOffset(int address) {
 	int offMask = 0xFFFF >> (16 - offsetSize);
 	int offset = address & offMask;
 
-	if (DEBUG) printf("Mask is %x; offset result is %d\n", offMask, offset);
+	//if (DEBUG) printf("Mask is %x; offset result is %d\n", offMask, offset);
 	return offset;
 }
 
@@ -190,9 +196,13 @@ int computeTag(int address) {
 	int tagMask = (0xFFFF >> (offsetSize + indexSize)) << (offsetSize + indexSize);
 	int tag = (address & tagMask) >> (offsetSize + indexSize);
 
-	if (DEBUG) printf("Mask is %x; tag result is %d\n", tagMask, tag);
+	//if (DEBUG) printf("Mask is %x; tag result is %d\n", tagMask, tag);
 
 	return tag;
+}
+
+int computeAddressFromWay(way* way) {
+	return (way->tag << (indexSize + offsetSize)) + (way->index << offsetSize);
 }
 
 void processLoad(int address, int size) {
@@ -215,7 +225,7 @@ void processLoad(int address, int size) {
 			if (DEBUG) printf("hit!\n");
 			hit = 1;
 
-			printLoadResult(way->data + offset, address, size, hit); // TODO implement
+			printLoadResult(way->data + offset, address, size, hit);
 			way->LRUT = 0;
 			break;
 		} else {
@@ -275,25 +285,67 @@ void bringBlockToCache(int address) {
 	}
 	if (DEBUG) printf("\n");
 
+	way* targetWay = findTargetWay(address);
+	writeToWay(targetWay, data, address, blockSize);
+}
+
+// Replace the data in the way. Write back to memory in case we are under a WRITE_BACK policy.
+void writeToWay(way* targetWay, char* data, int address, int size) {
+	// Replace the data in the way with the current being loaded
+	// TODO: bring block back to memory if WRITE_BACK & dirty (or just do it everytime)
+
+	if(targetWay->valid > 0 & targetWay->tag != computeTag(address) & targetWay->dirty > 0) {
+
+		int address = computeAddressFromWay(targetWay);
+
+		if (DEBUG) printf("writeToWay: evicting way back to memory at address %x: ", address);
+		
+		char* evictedData = targetWay->data;
+		
+		for (int i = 0; i < blockSize; i++) {
+			mem[address + i] = evictedData[i];
+			if (DEBUG) printf("%02hhx", evictedData[i]);
+		}
+		if (DEBUG) printf("\n");
+	}
+
+	if(storeAlg & WRITE_THROUGH > 0) {
+		for (int i = 0; i < size; i++) {
+			mem[address + i] = data[i];
+		}
+	}
+
+	if (DEBUG) printf("writeToWay: Writing to way %d. Result: ", computeIndex(address));
+	if (DEBUG) printData(size, data);
+	if (DEBUG) printf("\n");
+	memcpy(targetWay->data + computeOffset(address), data, size);
+	targetWay->LRUT = 0;
+	targetWay->index = computeIndex(address);
+	targetWay->tag = computeTag(address);
+	targetWay->valid = 1;
+}
+
+// Find the way with the greatest LRUT, meaning it was the least recently used.
+way* findTargetWay(int address) {
 	// Find the way with the greatest LRUT, meaning it was the least recently used.
 	way* currentWay = getSet(computeIndex(address));
 	way* targetWay = currentWay;
 	int foundWay = 0;
 	int nWay = 0;
 
-	if(DEBUG) printf("LRUTs:");
-	for (int i = 0; i < nWays; i++) {		
+	if (DEBUG) printf("LRUTs:");
+	for (int i = 0; i < nWays; i++) {
 		if (DEBUG) printf("%d ", currentWay->LRUT);
 
 		// If we find an invalid way, then we write it there
-		if(currentWay->valid == 0) {
+		if (currentWay->valid == 0) {
 			if (DEBUG) printf("\nFound invalid way%d", nWay);
 			targetWay = currentWay;
 			foundWay = nWay;
 			break;
 		}
 
-		if(targetWay->LRUT < currentWay->LRUT) {
+		if (targetWay->LRUT < currentWay->LRUT) {
 			targetWay = currentWay;
 			foundWay = nWay;
 		}
@@ -303,12 +355,9 @@ void bringBlockToCache(int address) {
 	}
 	if (DEBUG) printf("\n");
 
-	// Replace the data in the way with the current being loaded
-	if(DEBUG) printf("Writing to way%d\n", foundWay);
-	memcpy(targetWay->data, data, BLOCK_MAX_SIZE);
-	targetWay->LRUT = 0;
-	targetWay->tag = computeTag(address);
-	targetWay->valid = 1;
+	if (DEBUG) printf("Found way%d\n", foundWay);
+
+	return targetWay;
 }
 
 void processStore(int address, int size, char* data) {
@@ -318,7 +367,52 @@ void processStore(int address, int size, char* data) {
 		printf("\n");
 	}
 
-	memcpy(mem + address, data, size);
+	//// First check if we can get a hit in the cache
+	// Compute address offset, index and tag using bit masks
+
+	int offset = computeOffset(address);
+	int index = computeIndex(address);
+	int tag = computeTag(address);
+
+	// Check all ways in a set and check validity and tag
+	way* way = getSet(index);
+	int hit = 0;
+
+	if (DEBUG) printf("Checking set #%d for hit\n", index);
+	for (int i = 0; i < nWays; i++) {
+		if ((way->valid != 0) && way->tag == tag) {
+			if (DEBUG) printf("hit!\n");
+			hit = 1;
+
+			writeToWay(way, data, address, size);
+			printStoreResult(address, hit);
+			way->dirty = 1;
+			way->LRUT = 0;
+			break;
+		} else {
+			if (DEBUG) printf("miss at way %d, iterating...\n", i);
+			way++;
+		}
+	}
+
+	if (hit == 0) {
+		if (DEBUG) printf("Missed all ways. Writing to memory\nResult: ");
+
+		for (int i = 0; i < size; i++) {
+			mem[address + i] = data[i];
+		}
+		if (DEBUG) printData(size, data);
+		if (DEBUG) printf("\n");
+
+		printStoreResult(address, hit);
+		if((storeAlg & WRITE_ALLOCATE) > 0) {
+			bringBlockToCache(address);
+		}
+	}
+
+	updateLRUT(index, tag);
+
+	//memcpy(mem + address, data, size);
 }
 
 void printLoadResult(char* data, int address, int size, int isHit) {
@@ -334,6 +428,19 @@ void printLoadResult(char* data, int address, int size, int isHit) {
 	printData(size, data);
 	printf("\n");
 	
+}
+
+void printStoreResult(int address, int isHit) {
+	char hitOrMiss[5];
+
+	if (isHit) {
+		strcpy(hitOrMiss, "hit");
+	} else {
+		strcpy(hitOrMiss, "miss");
+	}
+
+	printf("store %04x %s", address, hitOrMiss);
+	printf("\n");
 }
 
 void printData(int size, char* data) {
